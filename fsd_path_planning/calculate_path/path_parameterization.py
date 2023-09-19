@@ -47,7 +47,6 @@ def angle_difference(angle1: Numeric, angle2: Numeric) -> Numeric:
     return cast(Numeric, (angle1 - angle2 + 3 * np.pi) % (2 * np.pi) - np.pi)  # type: ignore
 
 
-@my_njit
 def calculate_path_curvature(
     path: FloatArray, window_size: int, path_is_closed: bool
 ) -> FloatArray:
@@ -94,7 +93,6 @@ def calculate_path_curvature(
     return path_curvature
 
 
-@my_njit
 def create_cyclic_sliding_window_indices(
     window_size: int, step_size: int, signal_length: int
 ) -> IntArray:

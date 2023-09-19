@@ -27,7 +27,6 @@ from fsd_path_planning.utils.math_utils import (
 # my_njit = lambda x: x  # XXX: just for debugging
 
 
-@my_njit
 def adjacency_matrix_to_borders_and_targets(
     adjacency_matrix: IntArray,
 ) -> Tuple[IntArray, IntArray]:
@@ -73,7 +72,6 @@ def adjacency_matrix_to_borders_and_targets(
     return neighbors_flat, final_borders
 
 
-@my_njit
 def double_stack_len(stack: GenericArray) -> GenericArray:
     """
     Double the capacity of a stack (used in the path search)
@@ -90,7 +88,6 @@ def double_stack_len(stack: GenericArray) -> GenericArray:
     return new_buffer
 
 
-@my_njit
 def resize_stack_if_needed(stack: GenericArray, stack_pointer: int) -> GenericArray:
     """
     Given a stack and its current pointer resize the stack if adding one more element
@@ -111,7 +108,6 @@ def resize_stack_if_needed(stack: GenericArray, stack_pointer: int) -> GenericAr
 FLOAT = float if TYPE_CHECKING else np.float32
 
 
-@my_njit
 def neighbor_bool_mask_can_be_added_to_attempt(
     trace: FloatArray,
     cone_type: ConeTypes,
@@ -249,7 +245,6 @@ def neighbor_bool_mask_can_be_added_to_attempt(
     return can_be_added
 
 
-@my_njit
 def check_if_neighbor_lies_between_last_in_attempt_and_candidate(
     trace: FloatArray,
     current_attempt: IntArray,
@@ -286,7 +281,6 @@ def check_if_neighbor_lies_between_last_in_attempt_and_candidate(
             break
 
 
-@my_njit
 def mask_second_in_attempt_is_on_right_vehicle_side(
     cone_type: ConeTypes,
     car_position: FloatArray,
@@ -307,7 +301,6 @@ def mask_second_in_attempt_is_on_right_vehicle_side(
     return mask
 
 
-@my_njit
 def calculate_mask_within_ellipse(
     trace: FloatArray,
     current_attempt: IntArray,
@@ -329,7 +322,6 @@ def calculate_mask_within_ellipse(
     return mask_in_ellipse
 
 
-@my_njit
 def angle_difference(angle1: FloatArray, angle2: FloatArray) -> FloatArray:
     """
     Calculate the difference between two angles. The range of the difference is [-pi, pi].
@@ -345,7 +337,6 @@ def angle_difference(angle1: FloatArray, angle2: FloatArray) -> FloatArray:
     return cast(FloatArray, (angle1 - angle2 + 3 * np.pi) % (2 * np.pi) - np.pi)  # type: ignore
 
 
-@my_njit
 def _impl_find_all_end_configurations(
     trace: FloatArray,
     cone_type: ConeTypes,

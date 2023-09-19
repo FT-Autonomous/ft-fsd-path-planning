@@ -32,7 +32,6 @@ def my_njit(func: T) -> T:
     return jit_func
 
 
-@my_njit
 def vec_dot(vecs1: np.ndarray, vecs2: np.ndarray) -> np.ndarray:
     """
     Mutliplies vectors in an array elementwise
@@ -47,7 +46,6 @@ def vec_dot(vecs1: np.ndarray, vecs2: np.ndarray) -> np.ndarray:
     return np.sum(vecs1 * vecs2, axis=-1)
 
 
-@my_njit
 def norm_of_last_axis(arr: np.ndarray) -> np.ndarray:
     original_shape = arr.shape
     arr_row_col = np.ascontiguousarray(arr).reshape(-1, arr.shape[-1])
@@ -61,7 +59,6 @@ def norm_of_last_axis(arr: np.ndarray) -> np.ndarray:
     return result
 
 
-@my_njit
 def vec_angle_between(
     vecs1: np.ndarray, vecs2: np.ndarray, clip_cos_theta: bool = True
 ) -> np.ndarray:
@@ -96,7 +93,6 @@ def vec_angle_between(
     return np.arccos(cos_theta)
 
 
-@my_njit
 def rotate(points: np.ndarray, theta: float) -> np.ndarray:
     """
     Rotates the points in `points` by angle `theta` around the origin
@@ -113,7 +109,6 @@ def rotate(points: np.ndarray, theta: float) -> np.ndarray:
     return np.dot(points, rotation_matrix)
 
 
-@my_njit
 def my_cdist_sq_euclidean(arr_a: np.ndarray, arr_b: np.ndarray) -> np.ndarray:
     """
     Calculates the pairwise square euclidean distances from each point in `X` to each
@@ -146,7 +141,6 @@ def my_cdist_sq_euclidean(arr_a: np.ndarray, arr_b: np.ndarray) -> np.ndarray:
     return np.dot(x_ext, y_ext)
 
 
-@my_njit
 def calc_pairwise_distances(
     points: np.ndarray, dist_to_self: float = 0.0
 ) -> np.ndarray:
@@ -169,7 +163,6 @@ def calc_pairwise_distances(
     return pairwise_distances
 
 
-@my_njit
 def my_in1d(test_values: np.ndarray, source_container: np.ndarray) -> np.ndarray:
     """
     Calculate a boolean mask for a 1d array indicating if an element in `test_values` is
@@ -250,7 +243,6 @@ def trace_angles_between(trace: np.ndarray) -> np.ndarray:
     return angles
 
 
-@my_njit
 def unit_2d_vector_from_angle(rad: np.ndarray) -> np.ndarray:
     """
     Creates unit vectors for each value in the rad array
@@ -271,7 +263,6 @@ def unit_2d_vector_from_angle(rad: np.ndarray) -> np.ndarray:
 
 # Calculates the angle of each vector in `vecs`
 # TODO: Look into fixing return type when a single vector is provided (return float)
-@my_njit
 def angle_from_2d_vector(vecs: np.ndarray) -> np.ndarray:
     """
     Calculates the angle of each vector in `vecs`. If `vecs` is just a single 2d vector
@@ -304,7 +295,6 @@ def angle_from_2d_vector(vecs: np.ndarray) -> np.ndarray:
     return return_value
 
 
-@my_njit
 def normalize_last_axis(vecs: np.ndarray) -> np.ndarray:
     """
     Returns a normalized version of vecs
@@ -322,7 +312,6 @@ def normalize_last_axis(vecs: np.ndarray) -> np.ndarray:
     return out.reshape(vecs.shape)
 
 
-@my_njit
 def lerp(
     values_to_lerp: np.ndarray,
     start1: np.ndarray,
@@ -492,7 +481,6 @@ def quaternion_to_euler_angles(quaternion: np.ndarray) -> np.ndarray:
     return return_value
 
 
-@my_njit
 def points_inside_ellipse(
     points: np.ndarray,
     center: np.ndarray,
@@ -581,7 +569,6 @@ def center_of_circle_from_3_points(
     return center
 
 
-@my_njit
 def circle_fit(coords: np.ndarray, max_iter: int = 99) -> np.ndarray:
     """
     Fit a circle to a set of points. This function is adapted from the hyper_fit function

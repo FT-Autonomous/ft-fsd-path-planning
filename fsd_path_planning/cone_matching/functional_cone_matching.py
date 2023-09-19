@@ -31,7 +31,6 @@ from fsd_path_planning.utils.math_utils import (
 ic = lambda x: x  # pylint: disable=invalid-name
 
 
-@my_njit
 def cones_in_range_and_pov_mask(
     cones: FloatArray,
     search_directions: FloatArray,

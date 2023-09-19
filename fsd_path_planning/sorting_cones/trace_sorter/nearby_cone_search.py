@@ -36,12 +36,10 @@ SEARCH_DIRECTIONS_CACHE_TYPE = Dict[SEARCH_DIRECTIONS_CACHE_KEY_TYPE, FloatArray
 SENTINEL_VALUE = maxsize - 10
 
 
-@my_njit
 def create_search_directions_cache() -> SEARCH_DIRECTIONS_CACHE_TYPE:
     return {(SENTINEL_VALUE, SENTINEL_VALUE, SENTINEL_VALUE): np.array([-1.0, -1.0])}
 
 
-@my_njit
 def calculate_match_search_direction_for_one_if_not_in_cache(
     cones_xy: FloatArray,
     key: SEARCH_DIRECTIONS_CACHE_KEY_TYPE,
@@ -56,7 +54,6 @@ def calculate_match_search_direction_for_one_if_not_in_cache(
     return cache_dict[key]
 
 
-@my_njit
 def pre_caluclate_search_directions(
     cones: FloatArray,
     configs: IntArray,
@@ -92,7 +89,6 @@ def pre_caluclate_search_directions(
     return cache
 
 
-@my_njit
 def sorted_set_diff(a: IntArray, b: IntArray) -> IntArray:
     """Returns the set difference between a and b, assume a,b are sorted."""
     # we cannot use np.setdiff1d because it is not supported by numba
@@ -101,7 +97,6 @@ def sorted_set_diff(a: IntArray, b: IntArray) -> IntArray:
     return a[mask]
 
 
-@my_njit
 def find_nearby_cones_for_idxs(
     idxs: IntArray, distance_matrix_sqaured: FloatArray, search_range: float
 ) -> IntArray:
@@ -116,7 +111,6 @@ ANGLE_MASK_CACHE_KEY_TYPE = Tuple[Tuple[int, int, int], int, int]
 ANGLE_MASK_CACHE_TYPE = Dict[ANGLE_MASK_CACHE_KEY_TYPE, Tuple[bool, bool]]
 
 
-@my_njit
 def create_angle_cache() -> ANGLE_MASK_CACHE_TYPE:
     # the key is a tuple which consists of the following:
     # - the key of the search direction cache (previous cone, current cone, next cone)
@@ -133,7 +127,6 @@ def create_angle_cache() -> ANGLE_MASK_CACHE_TYPE:
     return d
 
 
-@my_njit
 def angle_between_search_direction_of_cone_and_other_cone_is_too_large(
     all_cone_directions: FloatArray,
     directions_key: SEARCH_DIRECTIONS_CACHE_KEY_TYPE,
@@ -156,7 +149,6 @@ def angle_between_search_direction_of_cone_and_other_cone_is_too_large(
     return good_angle, bad_angle
 
 
-@my_njit
 def angle_between_search_direction_of_cone_and_other_cone_is_too_large_if_not_in_cache(
     all_cone_directions: FloatArray,
     directions_key: SEARCH_DIRECTIONS_CACHE_KEY_TYPE,
@@ -182,7 +174,6 @@ def angle_between_search_direction_of_cone_and_other_cone_is_too_large_if_not_in
     return angle_cache[key]
 
 
-@my_njit
 def calculate_visible_cones_for_one_cone(
     cone_idx: int,
     cone_within_distance_matrix_mask: BoolArray,
@@ -224,7 +215,6 @@ def calculate_visible_cones_for_one_cone(
     return good_mask, bad_mask
 
 
-@my_njit
 def _impl_number_cones_on_each_side_for_each_config(
     cones: FloatArray,
     configs: IntArray,

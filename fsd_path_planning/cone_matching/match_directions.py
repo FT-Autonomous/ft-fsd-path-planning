@@ -4,7 +4,6 @@ from fsd_path_planning.utils.cone_types import ConeTypes
 from fsd_path_planning.utils.math_utils import my_njit, rotate
 
 
-@my_njit
 def calculate_search_direction_for_one(cones, idxs, cone_type):
     """
     Calculates the search direction for one cone
@@ -20,7 +19,6 @@ def calculate_search_direction_for_one(cones, idxs, cone_type):
     return search_direction / np.linalg.norm(search_direction)
 
 
-@my_njit
 def calculate_match_search_direction(
     cones,
     cone_type: ConeTypes,

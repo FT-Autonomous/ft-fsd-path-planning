@@ -43,7 +43,6 @@ def get_configurations_diff(points: FloatArray, configurations: IntArray) -> Flo
     return result
 
 
-@my_njit
 def breadth_first_order(adjacency_matrix: IntArray, start_idx: int) -> IntArray:
     """
     Returns the nodes reachable from `start_idx` in BFS order
